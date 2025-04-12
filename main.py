@@ -7,6 +7,19 @@ from calibrate import CalibrateCamera
 from marker import EstimateExtrinsicUsingMarker
 from render import Render
 import subprocess
+import time
+
+def start_xvfb():
+    """Starts Xvfb and sets the DISPLAY environment variable."""
+    try:
+        # Start Xvfb in the background
+        subprocess.Popen(["Xvfb", ":99", "-screen", "0", "1024x768x24"])
+        time.sleep(2) # Give Xvfb a moment to start.
+        os.environ["DISPLAY"] = ":99" #This affects the streamlit process.
+        st.success("Xvfb started and DISPLAY set (Streamlit only).")
+
+    except Exception as e:
+        st.error(f"Error starting Xvfb: {e}")
 
 def set_libgl_software():
     """Sets the LIBGL_ALWAYS_SOFTWARE environment variable."""
@@ -52,6 +65,7 @@ def wait(seconds):
 
 # Set up directories
 set_libgl_software()
+start_xvfb()
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 OUTPUT_DIR = Path("data/output")
