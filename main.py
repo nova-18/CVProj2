@@ -8,6 +8,21 @@ from marker import EstimateExtrinsicUsingMarker
 from render import Render
 import subprocess
 
+def set_libgl_software():
+    """Sets the LIBGL_ALWAYS_SOFTWARE environment variable."""
+    try:
+        # Note: Directly setting environment variables within a subprocess this way
+        # typically will *not* affect the parent process (streamlit).
+        # This only affects the environment of the subprocess itself.
+        # If your goal is to affect the Streamlit process, this will not work.
+        subprocess.run(["export", "LIBGL_ALWAYS_SOFTWARE=1"], shell=True, check=True)
+        st.success("LIBGL_ALWAYS_SOFTWARE set (in subprocess).")
+
+    except subprocess.CalledProcessError as e:
+        st.error(f"Error setting LIBGL_ALWAYS_SOFTWARE: {e}")
+    except Exception as e:
+        st.error(f"An unexpected error occurred: {e}")
+
 def re_encode_video(input_file, output_file):
     """Re-encodes a video using FFmpeg."""
     try:
@@ -36,6 +51,7 @@ def wait(seconds):
     time.sleep(seconds)
 
 # Set up directories
+set_libgl_software()
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 OUTPUT_DIR = Path("data/output")
