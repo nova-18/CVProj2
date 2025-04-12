@@ -159,8 +159,9 @@ if submit:
             )
             # wait(2)
             output_video_path = "data/output/output.mp4"
-            final_out_path = "data/output/output_fin.mp4"
-            success, error_message = re_encode_video(output_video_path,final_out_path)
+            # final_out_path = "data/output/output_fin.mp4"
+            final_out_path = output_video_path
+            # success, error_message = re_encode_video(output_video_path,final_out_path)
             if os.path.exists(final_out_path):
                 st.success("Rendering Complete ✅")
                 st.video(str(final_out_path))
