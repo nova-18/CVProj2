@@ -6,4 +6,4 @@ glfw
 tqdm
 matplotlib
 streamlit
-moviepy
+

@@ -8,7 +8,7 @@ from marker import EstimateExtrinsicUsingMarker
 from render import Render
 import subprocess
 import time
-from moviepy.editor import VideoFileClip
+# from moviepy.editor import VideoFileClip
 
 
 def start_xvfb():
@@ -162,15 +162,15 @@ if submit:
             # wait(2)
             output_video_path = "data/output/output.mp4"
             # Load the input video
-            clip = VideoFileClip(output_video_path)
+            # clip = VideoFileClip(output_video_path)
 
 # Write it to a new file with H.264 video and AAC audio codecs
             
 
             final_out_path = "data/output/output_fin.mp4"
-            clip.write_videofile(final_out_path, codec="libx264", audio_codec="aac")
+            # clip.write_videofile(final_out_path, codec="libx264", audio_codec="aac")
             # final_out_path = output_video_path
-            # success, error_message = re_encode_video(output_video_path,final_out_path)
+            success, error_message = re_encode_video(output_video_path,final_out_path)
             if os.path.exists(final_out_path):
                 st.success("Rendering Complete ✅")
                 st.video(str(final_out_path))
