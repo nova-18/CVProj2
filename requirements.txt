@@ -6,4 +6,3 @@ glfw
 tqdm
 matplotlib
 streamlit
-

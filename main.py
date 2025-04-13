@@ -23,6 +23,16 @@ def start_xvfb():
     except Exception as e:
         st.error(f"Error starting Xvfb: {e}")
 
+def kill_xvfb():
+    """Kills the Xvfb process."""
+    try:
+        subprocess.run(["pkill", "Xvfb"], shell=True, check=True)
+        st.success("Xvfb process killed.")
+    except subprocess.CalledProcessError as e:
+        st.error(f"Error killing Xvfb: {e}")
+    except Exception as e:
+        st.error(f"An unexpected error occurred: {e}")
+
 def set_libgl_software():
     """Sets the LIBGL_ALWAYS_SOFTWARE environment variable."""
     try:
@@ -170,6 +180,7 @@ if submit:
             final_out_path = "data/output/output_fin.mp4"
             # clip.write_videofile(final_out_path, codec="libx264", audio_codec="aac")
             # final_out_path = output_video_path
+            kill_xvfb()
             success, error_message = re_encode_video(output_video_path,final_out_path)
             if os.path.exists(final_out_path):
                 st.success("Rendering Complete ✅")
