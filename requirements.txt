@@ -7,4 +7,3 @@ tqdm
 matplotlib
 streamlit
 moviepy
-imageio-ffmpeg
